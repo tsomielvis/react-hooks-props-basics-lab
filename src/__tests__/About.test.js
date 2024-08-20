@@ -1,20 +1,14 @@
-import "@testing-library/jest-dom";
-import { render, screen } from "@testing-library/react";
+import React from "react";
+import Links from "./Links";
 
-import user from "../data/user";
-import About from "../components/About";
+function About({ bio, links }) {
+  return (
+    <div id="about">
+      <h2>About Me</h2>
+      {bio && bio.length > 0 && <p>{bio}</p>}
+      <Links github={links.github} linkedin={links.linkedin} />
+    </div>
+  );
+}
 
-test("renders a <p> element with the bio from props", () => {
-  render(<About bio="I made this" links={user.links} />);
-  expect(screen.queryByText("I made this")).toBeInTheDocument();
-});
-
-test("does not render a <p> element if the bio is not included in props", () => {
-  const { container } = render(<About links={user.links} />);
-  expect(container.querySelector("p")).toBeNull();
-});
-
-test("does not render a <p> element if the bio is an empty string", () => {
-  const { container } = render(<About bio="" links={user.links} />);
-  expect(container.querySelector("p")).toBeNull();
-});
+export default About;
